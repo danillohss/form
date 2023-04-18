@@ -8,25 +8,25 @@
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Nome:</label>
                         <div class="col">
-                            <input type="text" class="form-control" v-model="form.name">
+                            <input type="text" class="form-control" v-model.lazy="form.name">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">E-mail:</label>
                         <div class="col">
-                            <input type="email" class="form-control" v-model="form.email">
+                            <input type="email" class="form-control" v-model.lazy="form.email">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Senha:</label>
                         <div class="col">
-                            <input type="password" class="form-control" v-model="form.password">
+                            <input type="password" class="form-control" v-model.lazy="form.password">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Idade:</label>
                         <div class="col">
-                            <input type="number" class="form-control" v-model="form.age">
+                            <input type="number" class="form-control" v-model.lazy="form.age">
                         </div>
                     </div>
                     <div class="mb-3 row">
