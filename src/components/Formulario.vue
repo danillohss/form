@@ -90,38 +90,80 @@
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Telefone:</label>
                         <div class="col">
-                            <input type="text" class="form-control" v-model="form.phone" v-maska="'(##) #-####-####'">
-                            <small class="text-muted">Formato: 11 97777-5555</small>
+                            <input type="text" class="form-control" v-model="form.phone" v-maska="'(##) #####-####'">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">CEP:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-model="form.cep" v-maska="'#####-###'">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">CPF:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-model="form.cpf" v-maska="'###.###.###-##'">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">CNPJ:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-model="form.cnpj" v-maska="'##.###.###/####-##'">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Cartão de crédito:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-model="form.creditCard"
+                                v-maska="'#### #### #### ###'">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Placa:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-model="form.licensePlate" v-maska="'AAA-####'">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Placa Mercosul:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-model="form.licensePlate" v-maska="'AAA#A###'">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">RG:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-model="form.rg" v-maska="'#*-X'">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Data:</label>
                         <div class="col">
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control" v-model="form.date">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Data/hora local:</label>
                         <div class="col">
-                            <input type="datetime-local" class="form-control">
+                            <input type="datetime-local" class="form-control" v-model="form.dataHourLocal">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Mês:</label>
                         <div class="col">
-                            <input type="month" class="form-control">
+                            <input type="month" class="form-control" v-model="form.month">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Semana:</label>
                         <div class="col">
-                            <input type="week" class="form-control">
+                            <input type="week" class="form-control" v-model="form.week">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Hora:</label>
                         <div class="col">
-                            <input type="time" class="form-control">
+                            <input type="time" class="form-control" v-model="form.hour">
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -199,19 +241,34 @@
                     <span>Telefone:</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Data:</span>
+                    <span>CPF: {{ form.cpf }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Data/hora local:</span>
+                    <span>CEP: {{ form.cep }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Mês:</span>
+                    <span>CNPJ: {{ form.cnpj }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Semana:</span>
+                    <span>Cartão de Crédito: {{ form.creditCard }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Hora:</span>
+                    <span>Placa veiculo: {{ form.licensePlate }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Data: {{ form.date }} || {{ moment(form.date).format('DD/MM/YYYY') }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Data/hora local: {{ form.dataHourLocal }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Mês:{{ form.month }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Semana:{{ form.week }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Hora:{{ form.hour }}</span>
                 </div>
                 <div class="mb-3 row">
                     <span>Cor:</span>
@@ -232,11 +289,13 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
     // eslint-disable-next-line 
     name: 'Formulario',
     data() {
         return {
+            moment: {},
             form: {
                 password: '',
                 name: '',
@@ -246,8 +305,22 @@ export default {
                 interest: [],
                 sexo: '',
                 phone: '',
+                cep: '',
+                cpf: '',
+                cnpj: '',
+                creditCard: '',
+                licensePlate: '',
+                rg: '',
+                date: '',
+                dataHourLocal: '',
+                month: '',
+                week: '',
+                hour: '',
             }
         }
-    }
+    },
+    created() {
+        this.moment = moment;
+    },
 }
 </script>
