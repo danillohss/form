@@ -33,13 +33,13 @@
                         <label class="col-3 col-form-label">Gênero:</label>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio">
+                                <input class="form-check-input" type="radio" value="feminino" v-model="form.sexo">
                                 <label class="form-check-label">
                                     Feminino
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio">
+                                <input class="form-check-input" type="radio" value="masculino" v-model="form.sexo">
                                 <label class="form-check-label">
                                     Masculino
                                 </label>
@@ -51,7 +51,8 @@
                         <label class="col-3 col-form-label">Licença:</label>
                         <div class="col">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input" type="checkbox" v-model="form.license" true-value="SIM"
+                                    false-value="NÃO">
                                 <label class="form-check-label">Li e aceito os termos</label>
                             </div>
                         </div>
@@ -61,25 +62,25 @@
                         <label class="col-3 col-form-label">Interesses:</label>
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input" type="checkbox" value="JavaScript" v-model="form.interest">
                                 <label class="form-check-label">
                                     JavaScriot
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input" type="checkbox" value="Vue.Js" v-model="form.interest">
                                 <label class="form-check-label">
                                     VueJS
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input" type="checkbox" value="Angular" v-model="form.interest">
                                 <label class="form-check-label">
                                     Angular
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input" type="checkbox" value="NodeJS" v-model="form.interest">
                                 <label class="form-check-label">
                                     NodeJS
                                 </label>
@@ -89,7 +90,7 @@
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Telefone:</label>
                         <div class="col">
-                            <input type="tel" class="form-control" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}">
+                            <input type="text" class="form-control" v-model="form.phone" v-maska="'(##) #-####-####'">
                             <small class="text-muted">Formato: 11 97777-5555</small>
                         </div>
                     </div>
@@ -165,61 +166,64 @@
                 <hr>
                 {{ form }}
                 <div class="mb-5 row">
-                    <spam>Estado do objeto</spam>
+                    <span>Estado do objeto</span>
                 </div>
 
                 <span class="fs-4">SAÍDA DE DADOS</span>
                 <hr>
                 <div class="mb-3 row">
-                    <spam>Nome: {{ form.name }}</spam>
+                    <span>Nome: {{ form.name }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>E-mail: {{ form.email }}</spam>
+                    <span>E-mail: {{ form.email }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Senha: {{ form.password }}</spam>
+                    <span>Senha: {{ form.password }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Idade: {{ form.age }}</spam>
+                    <span>Idade: {{ form.age }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Gênero:</spam>
+                    <span>Gênero: {{ form.sexo }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Licença:</spam>
+                    <span>Licença: {{ form.license }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Interesses:</spam>
+                    <span>Interesses:</span>
+                    <ul>
+                        <li v-for="(interests, index) in form.interest" :key="index">{{ interests }}</li>
+                    </ul>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Telefone:</spam>
+                    <span>Telefone:</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Data:</spam>
+                    <span>Data:</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Data/hora local:</spam>
+                    <span>Data/hora local:</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Mês:</spam>
+                    <span>Mês:</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Semana:</spam>
+                    <span>Semana:</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Hora:</spam>
+                    <span>Hora:</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Cor:</spam>
+                    <span>Cor:</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Valor limite:</spam>
+                    <span>Valor limite:</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Escondido:</spam>
+                    <span>Escondido:</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Upload:</spam>
+                    <span>Upload:</span>
                 </div>
             </div>
         </div>
@@ -238,6 +242,10 @@ export default {
                 name: '',
                 email: '',
                 age: ' ',
+                license: 'NÃO',
+                interest: [],
+                sexo: '',
+                phone: '',
             }
         }
     }
