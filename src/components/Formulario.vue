@@ -145,7 +145,7 @@
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Data/hora local:</label>
                         <div class="col">
-                            <input type="datetime-local" class="form-control" v-model="form.dataHourLocal">
+                            <input type="datetime-local" class="form-control" v-model="form.dateHourLocal">
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -169,25 +169,31 @@
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Cor:</label>
                         <div class="col">
-                            <input type="color" class="form-color">
+                            <input type="color" class="form-color" v-model="form.color">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Valor limite:</label>
                         <div class="col">
-                            <input type="range" class="form-range" min="0" max="100" step="1">
+                            <input type="range" class="form-range" min="0" max="100" step="1" v-model="form.range">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Escondido:</label>
                         <div class="col">
-                            <input type="hidden" class="form-control">
+                            <input type="hidden" class="form-control" v-model="form.hidden">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Upload:</label>
                         <div class="col">
-                            <input type="file" class="form-control">
+                            <input type="file" class="form-control" multiple @change="selectFile($event)">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Descrição:</label>
+                        <div class="col">
+                            <textarea class="form-control" rows="3" v-model.lazy="form.description"></textarea>
                         </div>
                     </div>
                     <hr>
@@ -203,7 +209,7 @@
             </div>
 
             <!-- DEBUG -->
-            <div class="col-6 text-white bg-secondary">
+            <div class="col-6 text-white bg-secondary" :style="`background-color:${form.color}!important`">
                 <span class="fs-4">ESTADO DO OBJETO</span>
                 <hr>
                 {{ form }}
@@ -256,10 +262,15 @@
                     <span>Placa veiculo: {{ form.licensePlate }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Data: {{ form.date }} || {{ moment(form.date).format('DD/MM/YYYY') }}</span>
+                    <span>Data: {{ form.date }} || {{ $moment(form.date).format('DD/MM/YYYY') }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Data/hora local: {{ form.dataHourLocal }}</span>
+                    <span>Data/hora local: {{ form.dateHourLocal }}</span>
+                    <ul>
+                        <li>
+                            {{ $moment(form.dateHourLocal).locale('pt-br').format('dddd') }}
+                        </li>
+                    </ul>
                 </div>
                 <div class="mb-3 row">
                     <span>Mês:{{ form.month }}</span>
@@ -271,16 +282,25 @@
                     <span>Hora:{{ form.hour }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Cor:</span>
+                    <span>Cor:{{ form.color }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Valor limite:</span>
+                    <span>Valor limite: {{ form.range }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <span>Escondido:</span>
+                    <span>Escondido: {{ form.hidden }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Descrição:</span>
+                    <div style="white-space: pre"> {{ form.description }}</div>
                 </div>
                 <div class="mb-3 row">
                     <span>Upload:</span>
+                    <ul>
+                        <li v-for="(file, index) in form.files" :key="index">
+                            {{ file.name }}
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -289,13 +309,11 @@
 </template>
 
 <script>
-import moment from 'moment'
 export default {
     // eslint-disable-next-line 
     name: 'Formulario',
     data() {
         return {
-            moment: {},
             form: {
                 password: '',
                 name: '',
@@ -312,15 +330,23 @@ export default {
                 licensePlate: '',
                 rg: '',
                 date: '',
-                dataHourLocal: '',
+                dateHourLocal: '',
                 month: '',
                 week: '',
                 hour: '',
+                color: '#6c757d',
+                range: 5,
+                hidden: 'Input oculto',
+                files: {},
+                description: '',
             }
         }
     },
-    created() {
-        this.moment = moment;
-    },
+    methods: {
+        selectFile(event) {
+            console.log(event.target.files)
+            this.form.files = event.target.files
+        }
+    }
 }
 </script>
