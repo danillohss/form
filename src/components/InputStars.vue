@@ -35,7 +35,8 @@ export default {
         this.stars[i].style = "bi-star-fill star-selected";
       }
       this.avaliationStar = e;
-      console.log(this.avaliationStar);
+      //Emitindo evento e passando atributo para o componente(Formulario) que está instanciando esse componente (InputStars)
+      this.$emit("avaliation", this.avaliationStar);
     },
   },
   created() {

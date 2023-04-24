@@ -307,9 +307,11 @@
           </div>
           <div class="mb-3 row">
             <label class="col-3 col-form-label">Avaliação</label>
-            <InputStars :numberStars="5"/>
-            <div>
-            </div>
+            <InputStars
+              :numberStars="5"
+              @avaliation="form.avaliation = $event"
+            />
+            <div></div>
           </div>
           <hr />
           <div class="mb-3 row">
@@ -421,6 +423,9 @@
           <div style="white-space: pre">{{ form.description }}</div>
         </div>
         <div class="mb-3 row">
+          <span>Estrelas do curso: {{ form.avaliation }}</span>
+        </div>
+        <div class="mb-3 row">
           <span>Curso:</span>
           <div style="white-space: pre">{{ form.selectedCourse }}</div>
         </div>
@@ -477,17 +482,13 @@ export default {
         files: {},
         description: "",
         selectedCourse: "",
+        avaliation: "",
       },
     };
   },
   methods: {
     selectFile(event) {
-      console.log(event.target.files);
       this.form.files = event.target.files;
-    },
-    submit(event) {
-      console.log(event);
-      console.log(this);
     },
     resetar() {
       this.form = {};
